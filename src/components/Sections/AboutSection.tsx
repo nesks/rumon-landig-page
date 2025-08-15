@@ -28,20 +28,20 @@ const AboutSection = () => {
     },
     {
       icon: Heart,
-      title: "Bem-estar Garantido",
-      description: "Cuidamos de todos os aspectos da sua vida universitária, desde moradia até suporte emocional.",
+      title: "Conexões Profissionais",
+      description: "Rede de contatos valiosa para oportunidades de trabalho e estágios através da comunidade universitária.",
       color: "cyber-green"
     },
     {
       icon: Zap,
-      title: "Tecnologia Avançada",
-      description: "Repúblicas equipadas com tecnologia de ponta para facilitar sua rotina diária.",
+      title: "Festa e Lazer",
+      description: "Viva a experiência completa universitária com festas e eventos organizados pelas repúblicas.",
       color: "cyber-blue"
     },
     {
       icon: Shield,
-      title: "Segurança Total",
-      description: "Sua segurança é nossa prioridade. Todas as repúblicas possuem sistemas de proteção avançados.",
+      title: "Preços Acessíveis",
+      description: "Economia garantida dividindo despesas com vários moradores, tornando a vida universitária mais acessível.",
       color: "metallic"
     }
   ];

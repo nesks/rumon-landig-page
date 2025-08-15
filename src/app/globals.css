@@ -398,3 +398,343 @@ body::before {
 [data-theme="light"] .shadow-green-500\/10 {
   box-shadow: 0 4px 6px -1px rgba(0, 204, 106, 0.1);
 }
+
+/* Performance optimizations for light mode */
+.light-mode {
+  /* Disable heavy animations and effects */
+  --animation-duration: 0s !important;
+  --transition-duration: 0.1s !important;
+}
+
+.light-mode * {
+  /* Disable ALL animations and transitions */
+  animation: none !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  transition: none !important;
+  transition-duration: 0.1s !important;
+  transform: none !important;
+}
+
+.light-mode *::before,
+.light-mode *::after {
+  /* Disable animations in pseudo-elements */
+  animation: none !important;
+  transition: none !important;
+}
+
+.light-mode body::before {
+  /* Disable grid background animation */
+  animation: none !important;
+  opacity: 0.1 !important;
+}
+
+/* Fix specific text colors in light mode */
+.light-mode .text-green-400 {
+  color: var(--cyber-green) !important;
+}
+
+.light-mode .text-cyan-400 {
+  color: var(--cyber-blue) !important;
+}
+
+.light-mode .text-green-400\/50 {
+  color: rgba(0, 204, 106, 0.5) !important;
+}
+
+.light-mode .group:hover .text-green-400 {
+  color: var(--cyber-green) !important;
+}
+
+.light-mode .hover\:text-green-400:hover {
+  color: var(--cyber-green) !important;
+}
+
+.light-mode .hover\:text-cyan-400:hover {
+  color: var(--cyber-blue) !important;
+}
+
+.light-mode .holo-button::before {
+  /* Disable button shine effect */
+  display: none !important;
+  content: none !important;
+}
+
+.light-mode .holo-button:hover {
+  /* Simplify button hover effect */
+  box-shadow: 0 2px 8px rgba(0, 204, 106, 0.3) !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+
+.light-mode .metallic {
+  /* Disable metallic shine animation */
+  background: var(--bg-secondary) !important;
+  background-image: none !important;
+  animation: none !important;
+}
+
+.light-mode .scan-lines::after {
+  /* Disable scan lines effect */
+  display: none !important;
+  content: none !important;
+  animation: none !important;
+}
+
+.light-mode .cyber-particles {
+  /* Disable floating particles */
+  display: none !important;
+  animation: none !important;
+}
+
+/* Disable ALL Tailwind animations in light mode */
+.light-mode [class*="animate-"] {
+  animation: none !important;
+  animation-duration: 0s !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+}
+
+/* Disable ALL Framer Motion animations in light mode */
+.light-mode [class*="motion-"] {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+/* Disable ALL hover animations in light mode */
+.light-mode *:hover {
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+.light-mode .theme-toggle {
+  /* Simplify theme toggle */
+  background: var(--cyber-green) !important;
+  animation: none !important;
+}
+
+.light-mode .theme-toggle:hover {
+  box-shadow: 0 2px 8px rgba(0, 204, 106, 0.3) !important;
+  transform: none !important;
+}
+
+/* Optimize scrollbar for light mode */
+.light-mode ::-webkit-scrollbar-thumb {
+  background: var(--cyber-green) !important;
+  background-image: none !important;
+}
+
+/* Disable ALL complex gradients in light mode */
+.light-mode [class*="bg-gradient-"] {
+  background: var(--bg-secondary) !important;
+  background-image: none !important;
+  animation: none !important;
+}
+
+/* Simplify ALL shadows in light mode */
+.light-mode [class*="shadow-"] {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Optimize text rendering for light mode */
+.light-mode {
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+
+/* Disable ALL keyframe animations in light mode */
+.light-mode * {
+  animation-name: none !important;
+}
+
+/* Disable ALL transforms in light mode */
+.light-mode * {
+  transform: none !important;
+  transform-style: flat !important;
+  perspective: none !important;
+}
+
+/* EXCEPTIONS: Keep holo-text and glitch effects in light mode */
+.light-mode .holo-text {
+  animation: holoShift 3s ease-in-out infinite !important;
+}
+
+.light-mode .glitch {
+  animation: glitch 2s infinite !important;
+}
+
+.light-mode .glitch::before {
+  animation: glitch-1 0.5s infinite !important;
+}
+
+.light-mode .glitch::after {
+  animation: glitch-2 0.5s infinite !important;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Restore effects when light-mode class is not present */
+html:not(.light-mode) .holo-text {
+  background: var(--holo-gradient);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: holoShift 3s ease-in-out infinite;
+}
+
+html:not(.light-mode) .glitch {
+  position: relative;
+  color: var(--cyber-green);
+  animation: glitch 2s infinite;
+}
+
+html:not(.light-mode) .glitch::before,
+html:not(.light-mode) .glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+html:not(.light-mode) .glitch::before {
+  animation: glitch-1 0.5s infinite;
+  color: var(--cyber-blue);
+  z-index: -1;
+}
+
+html:not(.light-mode) .glitch::after {
+  animation: glitch-2 0.5s infinite;
+  color: #ff0080;
+  z-index: -2;
+}
+
+html:not(.light-mode) .holo-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+html:not(.light-mode) .holo-button:hover::before {
+  left: 100%;
+}
+
+html:not(.light-mode) .holo-button:hover {
+  box-shadow: 
+    0 0 20px var(--cyber-green),
+    inset 0 0 20px rgba(0, 255, 136, 0.1);
+  text-shadow: 0 0 10px var(--cyber-green);
+}
+
+html:not(.light-mode) .metallic {
+  background: linear-gradient(135deg, #2a2a2a, #4a4a4a, #2a2a2a);
+  background-size: 200% 200%;
+  animation: metallicShine 3s ease-in-out infinite;
+}
+
+html:not(.light-mode) .scan-lines::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    transparent 50%,
+    rgba(0, 255, 136, 0.03) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  animation: scanlines 0.1s linear infinite;
+}
+
+html:not(.light-mode) .cyber-particles {
+  display: block;
+}
+
+/* Restore grid animation when not in light mode */
+html:not(.light-mode) body::before {
+  animation: gridPulse 4s ease-in-out infinite;
+  opacity: 0.3;
+}
+
+/* Force animation restoration when light-mode is removed */
+html:not(.light-mode) .holo-text {
+  animation: holoShift 3s ease-in-out infinite !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: infinite !important;
+}
+
+html:not(.light-mode) .glitch {
+  animation: glitch 2s infinite !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: infinite !important;
+}
+
+html:not(.light-mode) .glitch::before {
+  animation: glitch-1 0.5s infinite !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: infinite !important;
+}
+
+html:not(.light-mode) .glitch::after {
+  animation: glitch-2 0.5s infinite !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: infinite !important;
+}
+
+html:not(.light-mode) .metallic {
+  animation: metallicShine 3s ease-in-out infinite !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: infinite !important;
+}
+
+html:not(.light-mode) .scan-lines::after {
+  animation: scanlines 0.1s linear infinite !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: infinite !important;
+}
+
+html:not(.light-mode) .cyber-particles {
+  animation: float 6s ease-in-out infinite !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: infinite !important;
+}
+
+/* Ensure all animations are restored when not in light mode */
+html:not(.light-mode) * {
+  animation-duration: revert;
+  animation-delay: revert;
+  animation-iteration-count: revert;
+  transition-duration: revert;
+}
+
+/* Force animation restart for elements that might be stuck */
+html:not(.light-mode) [class*="animate-"] {
+  animation: revert !important;
+}
+
+html:not(.light-mode) [class*="motion-"] {
+  animation: revert !important;
+  transition: revert !important;
+}

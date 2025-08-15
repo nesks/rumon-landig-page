@@ -3,15 +3,17 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Cpu, Wifi, Zap, CircuitBoard, Hexagon, Diamond } from 'lucide-react';
+import { useTheme } from '@/hooks/useTheme';
 
 const FloatingElements = () => {
   const [mounted, setMounted] = useState(false);
+  const { isLightMode } = useTheme();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
+  if (!mounted || isLightMode) {
     return <div className="fixed inset-0 -z-10" />;
   }
 

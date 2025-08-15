@@ -6,18 +6,20 @@ import { useInView } from 'react-intersection-observer';
 import { useEffect, useState } from 'react';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { useMousePosition } from '@/hooks/useMousePosition';
+import { usePerformanceMode } from '@/hooks/usePerformanceMode';
 
 const HeroSection = () => {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
   const mousePosition = useMousePosition();
   const windowSize = useWindowSize();
+  const { shouldAnimate, getOptimizedVariants, getOptimizedWhileHover, getOptimizedWhileTap, getOptimizedAnimate, getOptimizedInitial, getOptimizedTransition } = usePerformanceMode();
 
   // Typewriter effect for the main title
   const [displayedText, setDisplayedText] = useState('');
   const fullText = 'VEM COM A GENTE PARA O FUTURO';
 
   useEffect(() => {
-    if (inView) {
+    if (inView && shouldAnimate) {
       let index = 0;
       const timer = setInterval(() => {
         setDisplayedText(fullText.slice(0, index));
@@ -27,10 +29,13 @@ const HeroSection = () => {
         }
       }, 100);
       return () => clearInterval(timer);
+    } else if (inView && !shouldAnimate) {
+      // In light mode, show text immediately
+      setDisplayedText(fullText);
     }
-  }, [inView]);
+  }, [inView, shouldAnimate]);
 
-  const containerVariants = {
+  const containerVariants = getOptimizedVariants({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -39,9 +44,9 @@ const HeroSection = () => {
         delayChildren: 0.3,
       },
     },
-  };
+  });
 
-  const itemVariants = {
+  const itemVariants = getOptimizedVariants({
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
@@ -51,7 +56,7 @@ const HeroSection = () => {
         ease: "easeOut",
       },
     },
-  };
+  });
 
   return (
     <section id="home" ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
@@ -65,7 +70,7 @@ const HeroSection = () => {
         </div>
         
         {/* Floating Holograms */}
-        {[...Array(12)].map((_, i) => {
+        {shouldAnimate && [...Array(12)].map((_, i) => {
           const baseX = (i * 137.5) % windowSize.width;
           const baseY = (i * 97.3) % windowSize.height;
           const duration = 3 + (i % 4);
@@ -104,7 +109,7 @@ const HeroSection = () => {
         })}
 
         {/* Cyber Particles */}
-        {[...Array(20)].map((_, i) => (
+        {shouldAnimate && [...Array(20)].map((_, i) => (
           <motion.div
             key={i}
             id={`hero-particle-${i}`}
@@ -126,17 +131,7 @@ const HeroSection = () => {
           animate={inView ? "visible" : "hidden"}
           className="space-y-8"
         >
-          {/* Badge */}
-          <motion.div
-            variants={itemVariants}
-            id="hero-badge"
-            className="inline-flex items-center space-x-2 bg-green-500/10 backdrop-blur-sm border border-green-500/30 rounded-full px-6 py-3 cursor-hover"
-          >
-            <Zap id="hero-badge-icon" className="w-5 h-5 text-green-400" />
-            <span id="hero-badge-text" className="text-green-400 text-sm font-medium tracking-wider">
-              RUMON TECH DIVISION
-            </span>
-          </motion.div>
+
 
           {/* Main Title with Glitch Effect */}
           <motion.div id="hero-title" variants={itemVariants}>
@@ -147,8 +142,8 @@ const HeroSection = () => {
                 </span>
                 <motion.span
                   id="hero-cursor"
-                  animate={{ opacity: [0, 1, 0] }}
-                  transition={{ duration: 1, repeat: Infinity }}
+                  animate={getOptimizedAnimate({ opacity: [0, 1, 0] })}
+                  transition={getOptimizedTransition({ duration: 1, repeat: Infinity })}
                   className="text-green-400"
                 >
                   _
@@ -185,12 +180,12 @@ const HeroSection = () => {
           >
             <motion.button
               id="hero-cta-primary"
-              whileHover={{ 
+              whileHover={getOptimizedWhileHover({ 
                 scale: 1.05,
                 boxShadow: "0 0 30px rgba(0, 255, 136, 0.5)",
                 textShadow: "0 0 10px #00ff88",
-              }}
-              whileTap={{ scale: 0.95 }}
+              })}
+              whileTap={getOptimizedWhileTap({ scale: 0.95 })}
               className="group relative holo-button text-lg px-8 py-4 cursor-hover"
             >
               <span id="hero-cta-primary-text" className="relative z-10 flex items-center space-x-2">
@@ -201,11 +196,11 @@ const HeroSection = () => {
 
             <motion.button
               id="hero-cta-secondary"
-              whileHover={{ 
+              whileHover={getOptimizedWhileHover({ 
                 scale: 1.05,
                 textShadow: "0 0 10px #00d4ff",
-              }}
-              whileTap={{ scale: 0.95 }}
+              })}
+              whileTap={getOptimizedWhileTap({ scale: 0.95 })}
               className="border-2 border-cyan-400/50 text-cyan-400 px-8 py-4 rounded-none font-semibold text-lg hover:bg-cyan-400/10 hover:border-cyan-400 transition-all duration-300 cursor-hover tracking-wider"
             >
               EXPLORAR REPÚBLICAS
@@ -226,11 +221,11 @@ const HeroSection = () => {
               <motion.div
                 key={index}
                 id={`hero-stat-${index}`}
-                whileHover={{ 
+                whileHover={getOptimizedWhileHover({ 
                   y: -5,
                   scale: 1.05,
                   textShadow: "0 0 15px #00ff88",
-                }}
+                })}
                 className="text-center group cursor-hover"
               >
                 <motion.div
@@ -257,26 +252,26 @@ const HeroSection = () => {
       {/* Scroll Indicator */}
       <motion.div
         id="hero-scroll-indicator"
-        initial={{ opacity: 0, y: 20 }}
+        initial={getOptimizedInitial({ opacity: 0, y: 20 })}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 3, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        transition={getOptimizedTransition({ delay: 3, duration: 0.8 })}
+        className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
       >
         <motion.div
           id="hero-scroll-icon"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          animate={getOptimizedAnimate({ y: [0, 10, 0] })}
+          transition={getOptimizedTransition({ duration: 2, repeat: Infinity })}
           className="flex flex-col items-center text-green-400 cursor-hover"
           onClick={() => {
             document.getElementById('republicas')?.scrollIntoView({ behavior: 'smooth' });
           }}
         >
-          <span id="hero-scroll-text" className="text-sm mb-2 tracking-wider">SCAN BELOW</span>
+          <span id="hero-scroll-text" className="text-sm mb-2 tracking-wider">scroll</span>
           <ArrowDown id="hero-scroll-arrow" className="w-5 h-5" />
           <motion.div
             id="hero-scroll-bar"
-            animate={{ scaleY: [1, 1.5, 1] }}
-            transition={{ duration: 1, repeat: Infinity }}
+            animate={getOptimizedAnimate({ scaleY: [1, 1.5, 1] })}
+            transition={getOptimizedTransition({ duration: 1, repeat: Infinity })}
             className="w-px h-8 bg-gradient-to-b from-green-400 to-transparent mt-2"
           />
         </motion.div>

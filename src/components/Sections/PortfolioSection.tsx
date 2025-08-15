@@ -8,13 +8,15 @@ import {
   Wifi, 
   Car, 
   Utensils, 
-  Heart
+  Heart,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { useState } from 'react';
 
 const PortfolioSection = () => {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true });
-  const [activeTab, setActiveTab] = useState('republicas');
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const republics = [
     {
@@ -85,6 +87,19 @@ const PortfolioSection = () => {
     }
   ];
 
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex + 3 >= republics.length ? 0 : prevIndex + 3
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex - 3 < 0 ? Math.max(0, republics.length - 3) : prevIndex - 3
+    );
+  };
+
+  const visibleRepublics = republics.slice(currentIndex, currentIndex + 3);
 
 
   const containerVariants = {
@@ -109,10 +124,6 @@ const PortfolioSection = () => {
       }
     }
   };
-
-  const tabs = [
-    { id: 'republicas', label: 'Repúblicas', icon: Building2 }
-  ];
 
   return (
     <section
@@ -191,33 +202,6 @@ const PortfolioSection = () => {
           </motion.div>
         </motion.div>
 
-        {/* Tab Navigation */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="flex justify-center mb-12"
-        >
-          <div className="bg-metallic rounded-lg p-2 border border-cyber-green-dark shadow-lg">
-            {tabs.map((tab) => (
-              <motion.button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-md transition-all duration-300 ${
-                  activeTab === tab.id
-                    ? 'bg-cyber-green text-black shadow-lg'
-                    : 'text-gray-300 hover:text-cyber-green hover:bg-cyber-green/10'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <tab.icon className="w-5 h-5" />
-                <span className="font-medium">{tab.label}</span>
-              </motion.button>
-            ))}
-          </div>
-        </motion.div>
-
         {/* Tab Content */}
         <motion.div
           variants={containerVariants}
@@ -225,13 +209,13 @@ const PortfolioSection = () => {
           animate={inView ? "visible" : "hidden"}
           className="min-h-[600px]"
         >
-          {activeTab === 'republicas' && (
-            <>
+          <div className="relative">
+            {/* Carousel Container */}
               <motion.div
                 variants={itemVariants}
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12"
               >
-                {republics.slice(0, 3).map((republic, index) => (
+              {visibleRepublics.map((republic, index) => (
                   <motion.div
                     key={republic.id}
                     variants={itemVariants}
@@ -293,6 +277,43 @@ const PortfolioSection = () => {
                   </motion.div>
                 ))}
               </motion.div>
+
+            {/* Navigation Arrows */}
+            <motion.button
+              onClick={prevSlide}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-metallic p-3 rounded-full border border-cyber-green-dark shadow-lg hover:bg-cyber-green/10 transition-all duration-300 cursor-hover"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronLeft className="w-6 h-6 text-cyber-green" />
+            </motion.button>
+
+            <motion.button
+              onClick={nextSlide}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-metallic p-3 rounded-full border border-cyber-green-dark shadow-lg hover:bg-cyber-green/10 transition-all duration-300 cursor-hover"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronRight className="w-6 h-6 text-cyber-green" />
+            </motion.button>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center mt-8 space-x-2">
+              {Array.from({ length: Math.ceil(republics.length / 3) }, (_, i) => (
+                <motion.button
+                  key={i}
+                  onClick={() => setCurrentIndex(i * 3)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    currentIndex === i * 3 
+                      ? 'bg-cyber-green' 
+                      : 'bg-gray-400 hover:bg-cyber-green/50'
+                  }`}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.8 }}
+                />
+              ))}
+            </div>
+          </div>
 
               {/* Ver Todas Button */}
               <motion.div
@@ -376,12 +397,6 @@ const PortfolioSection = () => {
                   </motion.div>
                 </div>
               </motion.div>
-            </>
-          )}
-
-
-
-
         </motion.div>
 
         <motion.div

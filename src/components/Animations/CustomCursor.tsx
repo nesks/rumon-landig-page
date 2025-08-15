@@ -2,17 +2,19 @@
 
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useTheme } from '@/hooks/useTheme';
 
 const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [cursorVariant, setCursorVariant] = useState('default');
   const [mounted, setMounted] = useState(false);
+  const { isLightMode } = useTheme();
 
   useEffect(() => {
     setMounted(true);
     
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && !isLightMode) {
       const mouseMove = (e: MouseEvent) => {
         setMousePosition({
           x: e.clientX,
@@ -64,9 +66,10 @@ const CustomCursor = () => {
         document.removeEventListener('mouseout', handleMouseOut);
       };
     }
-  }, []);
+  }, [isLightMode]);
 
-  if (!mounted) return null;
+  // Don't render cursor in light mode
+  if (!mounted || isLightMode) return null;
 
   const variants = {
     default: {

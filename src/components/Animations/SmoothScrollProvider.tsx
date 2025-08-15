@@ -1,41 +1,29 @@
 'use client';
 
-import { createContext, useContext, useEffect, useRef } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
+import { useTheme } from '@/hooks/useTheme';
 
-interface SmoothScrollContextType {
-  scrollTo: (target: string | number) => void;
-}
-
-const SmoothScrollContext = createContext<SmoothScrollContextType | null>(null);
-
-export const useSmoothScroll = () => {
-  const context = useContext(SmoothScrollContext);
-  if (!context) {
-    return { scrollTo: () => {} }; // Return safe fallback
-  }
-  return context;
-};
-
-interface SmoothScrollProviderProps {
-  children: React.ReactNode;
-}
-
-const SmoothScrollProvider = ({ children }: SmoothScrollProviderProps) => {
-  const scrollTo = (target: string | number) => {
-    if (typeof target === 'string') {
-      const element = document.querySelector(target);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      window.scrollTo({ top: target, behavior: 'smooth' });
-    }
-  };
+const SmoothScrollProvider = ({ children }: { children: React.ReactNode }) => {
+  const { scrollYProgress } = useScroll();
+  const { isLightMode } = useTheme();
+  
+  // Disable spring animation in light mode for better performance
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: isLightMode ? 1000 : 100,
+    damping: isLightMode ? 50 : 30,
+    restDelta: isLightMode ? 0.001 : 0.001
+  });
 
   return (
-    <SmoothScrollContext.Provider value={{ scrollTo }}>
+    <>
       {children}
-    </SmoothScrollContext.Provider>
+      {!isLightMode && (
+        <motion.div
+          className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyber-green to-cyber-blue transform-origin-0 z-50"
+          style={{ scaleX }}
+        />
+      )}
+    </>
   );
 };
 
