@@ -219,7 +219,7 @@ const PortfolioSection = () => {
                   <motion.div
                     key={republic.id}
                     variants={itemVariants}
-                    className="group relative bg-metallic rounded-lg border border-cyber-green-dark shadow-lg scan-lines overflow-hidden cursor-hover"
+                    className="group relative bg-metallic rounded-lg border border-cyber-green-dark shadow-lg scan-lines overflow-hidden"
                     whileHover={{ y: -10 }}
                     transition={{ duration: 0.3 }}
                   >
@@ -281,7 +281,7 @@ const PortfolioSection = () => {
             {/* Navigation Arrows */}
             <motion.button
               onClick={prevSlide}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-metallic p-3 rounded-full border border-cyber-green-dark shadow-lg hover:bg-cyber-green/10 transition-all duration-300 cursor-hover"
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-metallic p-3 rounded-full border border-cyber-green-dark shadow-lg hover:bg-cyber-green/10 transition-all duration-300"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -290,7 +290,7 @@ const PortfolioSection = () => {
 
             <motion.button
               onClick={nextSlide}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-metallic p-3 rounded-full border border-cyber-green-dark shadow-lg hover:bg-cyber-green/10 transition-all duration-300 cursor-hover"
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-metallic p-3 rounded-full border border-cyber-green-dark shadow-lg hover:bg-cyber-green/10 transition-all duration-300"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -406,7 +406,7 @@ const PortfolioSection = () => {
           className="text-center mt-16"
         >
           <motion.button
-            className="holo-button cursor-hover"
+                            className="holo-button"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

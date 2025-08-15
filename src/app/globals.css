@@ -91,6 +91,60 @@ body::before {
   cursor: none;
 }
 
+/* Hide default cursor in dark mode */
+html:not(.light-mode) {
+  cursor: none;
+}
+
+html:not(.light-mode) * {
+  cursor: none;
+}
+
+/* Ensure cursor is always visible in light mode */
+.light-mode {
+  cursor: auto !important;
+}
+
+.light-mode * {
+  cursor: auto !important;
+}
+
+/* Override any cursor: none in light mode */
+.light-mode .cursor-hover,
+.light-mode .cursor-click,
+.light-mode .cursor-text {
+  cursor: auto !important;
+}
+
+/* Text cursor for input fields in light mode */
+.light-mode input, 
+.light-mode textarea, 
+.light-mode [contenteditable] {
+  cursor: text !important;
+}
+
+/* Pointer cursor for clickable elements in light mode */
+.light-mode button,
+.light-mode [role="button"],
+.light-mode a,
+.light-mode .cursor-pointer,
+.light-mode .holo-button {
+  cursor: pointer !important;
+}
+
+/* Force cursor visibility on hover in light mode */
+.light-mode *:hover {
+  cursor: auto !important;
+}
+
+.light-mode button:hover,
+.light-mode [role="button"]:hover,
+.light-mode a:hover,
+.light-mode .cursor-pointer:hover,
+.light-mode .holo-button:hover {
+  cursor: pointer !important;
+}
+
 /* Holographic effects */
 .holo-text {
   background: var(--holo-gradient);

@@ -16,7 +16,7 @@ const ThemeToggle = () => {
   return (
     <motion.button
       onClick={toggleTheme}
-      className="relative w-14 h-8 bg-gradient-to-r from-green-400 to-cyan-400 rounded-full cursor-hover border-2 border-green-400 overflow-hidden group"
+              className="relative w-14 h-8 bg-gradient-to-r from-green-400 to-cyan-400 rounded-full border-2 border-green-400 overflow-hidden group"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       initial={{ opacity: 0, x: 20 }}

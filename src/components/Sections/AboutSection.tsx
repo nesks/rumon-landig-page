@@ -218,7 +218,7 @@ const AboutSection = () => {
           className="text-center mt-16"
         >
           <motion.button
-            className="holo-button cursor-hover"
+                            className="holo-button"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

@@ -186,7 +186,7 @@ const HeroSection = () => {
                 textShadow: "0 0 10px #00ff88",
               })}
               whileTap={getOptimizedWhileTap({ scale: 0.95 })}
-              className="group relative holo-button text-lg px-8 py-4 cursor-hover"
+                              className="group relative holo-button text-lg px-8 py-4"
             >
               <span id="hero-cta-primary-text" className="relative z-10 flex items-center space-x-2">
                 <span>CONHECER REPÚBLICAS</span>
@@ -226,7 +226,7 @@ const HeroSection = () => {
                   scale: 1.05,
                   textShadow: "0 0 15px #00ff88",
                 })}
-                className="text-center group cursor-hover"
+                className="text-center group"
               >
                 <motion.div
                   id={`hero-stat-number-${index}`}
@@ -261,7 +261,7 @@ const HeroSection = () => {
           id="hero-scroll-icon"
           animate={getOptimizedAnimate({ y: [0, 10, 0] })}
           transition={getOptimizedTransition({ duration: 2, repeat: Infinity })}
-          className="flex flex-col items-center text-green-400 cursor-hover"
+                          className="flex flex-col items-center text-green-400"
           onClick={() => {
             document.getElementById('republicas')?.scrollIntoView({ behavior: 'smooth' });
           }}

@@ -67,7 +67,12 @@ const Header = () => {
               }}
               className="w-10 h-10 bg-gradient-to-br from-green-400 to-cyan-400 rounded-lg flex items-center justify-center metallic"
             >
-              <Cpu id="header-logo-cpu" className="w-6 h-6 text-black" />
+                <img 
+                id="header-logo-cpu" 
+                src="/icon.png" 
+                alt="RUMON Logo" 
+                className="bg-white rounded-lg"
+              />
             </motion.div>
             <div id="header-logo-text">
               <h1 id="header-logo-title" className="text-2xl lg:text-3xl font-bold holo-text">
