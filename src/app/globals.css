@@ -91,15 +91,6 @@ body::before {
   cursor: none;
 }
 
-/* Hide default cursor in dark mode */
-html:not(.light-mode) {
-  cursor: none;
-}
-
-html:not(.light-mode) * {
-  cursor: none;
-}
-
 /* Ensure cursor is always visible in light mode */
 .light-mode {
   cursor: auto !important;
