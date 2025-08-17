@@ -59,7 +59,7 @@ const HeroSection = () => {
   });
 
   return (
-    <section id="home" ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
+    <section id="home" ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900 pt-14 sm:pt-16 lg:pt-20">
       {/* Cyber Background Effects */}
       <div id="hero-background" className="absolute inset-0 pointer-events-none">
         {/* Holographic Grid */}
@@ -101,8 +101,8 @@ const HeroSection = () => {
                 delay: i * 0.5,
               }}
             >
-              <div id={`hero-hologram-icon-${i}`} className="w-12 h-12 bg-gradient-to-br from-green-400/20 to-cyan-400/20 rounded-lg backdrop-blur-sm border border-green-400/30 flex items-center justify-center">
-                <IconComponent id={`hero-hologram-icon-component-${i}`} className="w-6 h-6 text-green-400" />
+              <div id={`hero-hologram-icon-${i}`} className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-green-400/20 to-cyan-400/20 rounded-lg backdrop-blur-sm border border-green-400/30 flex items-center justify-center">
+                <IconComponent id={`hero-hologram-icon-component-${i}`} className="w-4 h-4 sm:w-6 sm:h-6 text-green-400" />
               </div>
             </motion.div>
           );
@@ -129,13 +129,13 @@ const HeroSection = () => {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="space-y-8"
+          className="space-y-6 sm:space-y-8"
         >
 
 
           {/* Main Title with Glitch Effect */}
           <motion.div id="hero-title" variants={itemVariants}>
-            <h1 id="hero-main-title" className="text-4xl sm:text-6xl lg:text-8xl font-bold text-white leading-tight">
+            <h1 id="hero-main-title" className="text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-bold text-white leading-tight px-2">
               <span id="hero-title-block" className="block">
                 <span id="hero-glitch-text" className="holo-text glitch" data-text={displayedText}>
                   {displayedText}
@@ -154,10 +154,10 @@ const HeroSection = () => {
 
           {/* Organization Name */}
           <motion.div id="hero-organization" variants={itemVariants}>
-            <h2 id="hero-org-title" className="text-2xl sm:text-3xl text-gray-300 mb-4">
+            <h2 id="hero-org-title" className="text-lg sm:text-2xl md:text-3xl text-gray-300 mb-2 sm:mb-4 px-2">
               <span id="hero-rumon-text" className="text-green-400">RUMON</span> - Repúblicas Unidas JM
             </h2>
-            <p id="hero-org-subtitle" className="text-lg text-gray-400">
+            <p id="hero-org-subtitle" className="text-sm sm:text-lg text-gray-400 px-2">
               Associação das Repúblicas Unidas Monlevadenses
             </p>
           </motion.div>
@@ -166,7 +166,7 @@ const HeroSection = () => {
           <motion.p
             id="hero-subtitle"
             variants={itemVariants}
-            className="text-xl sm:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
+            className="text-base sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-4"
           >
             Conecte-se ao futuro da moradia estudantil. Equilibre vida social e estudos em um 
             ambiente tecnológico e inovador. <span id="hero-future-text" className="text-green-400">Your future starts here.</span>
@@ -176,7 +176,7 @@ const HeroSection = () => {
           <motion.div
             id="hero-ctas"
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center px-4"
           >
             <motion.button
               id="hero-cta-primary"
@@ -186,11 +186,11 @@ const HeroSection = () => {
                 textShadow: "0 0 10px #00ff88",
               })}
               whileTap={getOptimizedWhileTap({ scale: 0.95 })}
-                              className="group relative holo-button text-lg px-8 py-4"
+              className="group relative holo-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto"
             >
-              <span id="hero-cta-primary-text" className="relative z-10 flex items-center space-x-2">
+              <span id="hero-cta-primary-text" className="relative z-10 flex items-center justify-center space-x-2">
                 <span>CONHECER REPÚBLICAS</span>
-                <Zap id="hero-cta-primary-icon" className="w-5 h-5" />
+                <Zap id="hero-cta-primary-icon" className="w-4 h-4 sm:w-5 sm:h-5" />
               </span>
             </motion.button>
 
@@ -201,7 +201,7 @@ const HeroSection = () => {
                 textShadow: "0 0 10px #00d4ff",
               })}
               whileTap={getOptimizedWhileTap({ scale: 0.95 })}
-              className="border-2 border-cyan-400/50 text-cyan-400 px-8 py-4 rounded-none font-semibold text-lg hover:bg-cyan-400/10 hover:border-cyan-400 transition-all duration-300 cursor-hover tracking-wider"
+              className="border-2 border-cyan-400/50 text-cyan-400 px-6 sm:px-8 py-3 sm:py-4 rounded-none font-semibold text-base sm:text-lg hover:bg-cyan-400/10 hover:border-cyan-400 transition-all duration-300 cursor-hover tracking-wider w-full sm:w-auto"
             >
               EXPLORAR REPÚBLICAS
             </motion.button>
@@ -211,7 +211,7 @@ const HeroSection = () => {
           <motion.div
             id="hero-stats"
             variants={itemVariants}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16 pt-16 border-t border-green-500/30"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12 sm:mt-16 pt-12 sm:pt-16 border-t border-green-500/30 px-4"
           >
             {[
               { number: "50+", label: "Repúblicas Conectadas", icon: Building },
@@ -230,18 +230,18 @@ const HeroSection = () => {
               >
                 <motion.div
                   id={`hero-stat-number-${index}`}
-                  className="text-4xl sm:text-5xl font-bold text-green-400 mb-2"
+                  className="text-3xl sm:text-4xl md:text-5xl font-bold text-green-400 mb-2"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: index * 0.2 + 1 }}
                 >
                   {stat.number}
                 </motion.div>
-                <p id={`hero-stat-label-${index}`} className="text-gray-300 text-lg">
+                <p id={`hero-stat-label-${index}`} className="text-sm sm:text-lg text-gray-300">
                   {stat.label}
                 </p>
-                <div id={`hero-stat-icon-${index}`} className="mt-4 flex justify-center">
-                  <stat.icon id={`hero-stat-icon-component-${index}`} className="w-8 h-8 text-green-400/50 group-hover:text-green-400 transition-colors duration-300" />
+                <div id={`hero-stat-icon-${index}`} className="mt-3 sm:mt-4 flex justify-center">
+                  <stat.icon id={`hero-stat-icon-component-${index}`} className="w-6 h-6 sm:w-8 sm:h-8 text-green-400/50 group-hover:text-green-400 transition-colors duration-300" />
                 </div>
               </motion.div>
             ))}
@@ -255,24 +255,24 @@ const HeroSection = () => {
         initial={getOptimizedInitial({ opacity: 0, y: 20 })}
         animate={{ opacity: 1, y: 0 }}
         transition={getOptimizedTransition({ delay: 3, duration: 0.8 })}
-        className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2"
       >
         <motion.div
           id="hero-scroll-icon"
           animate={getOptimizedAnimate({ y: [0, 10, 0] })}
           transition={getOptimizedTransition({ duration: 2, repeat: Infinity })}
-                          className="flex flex-col items-center text-green-400"
+          className="flex flex-col items-center text-green-400 cursor-pointer"
           onClick={() => {
             document.getElementById('republicas')?.scrollIntoView({ behavior: 'smooth' });
           }}
         >
-          <span id="hero-scroll-text" className="text-sm mb-2 tracking-wider">scroll</span>
-          <ArrowDown id="hero-scroll-arrow" className="w-5 h-5" />
+          <span id="hero-scroll-text" className="text-xs sm:text-sm mb-2 tracking-wider">scroll</span>
+          <ArrowDown id="hero-scroll-arrow" className="w-4 h-4 sm:w-5 sm:h-5" />
           <motion.div
             id="hero-scroll-bar"
             animate={getOptimizedAnimate({ scaleY: [1, 1.5, 1] })}
             transition={getOptimizedTransition({ duration: 1, repeat: Infinity })}
-            className="w-px h-8 bg-gradient-to-b from-green-400 to-transparent mt-2"
+            className="w-px h-6 sm:h-8 bg-gradient-to-b from-green-400 to-transparent mt-2"
           />
         </motion.div>
       </motion.div>

@@ -36,6 +36,7 @@ body {
   scroll-behavior: smooth;
   position: relative;
   transition: background-color 0.5s ease, color 0.5s ease;
+  overflow-x: hidden;
 }
 
 html {
@@ -782,4 +783,160 @@ html:not(.light-mode) [class*="animate-"] {
 html:not(.light-mode) [class*="motion-"] {
   animation: revert !important;
   transition: revert !important;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 640px) {
+  /* Improve touch targets */
+  .holo-button {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+  
+  /* Better spacing for mobile */
+  .space-y-6 > * + * {
+    margin-top: 1.25rem;
+  }
+  
+  .space-y-8 > * + * {
+    margin-top: 1.75rem;
+  }
+  
+  /* Improve text readability on mobile */
+  .text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  
+  .text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+  
+  .text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+  
+  /* Better grid layouts for mobile */
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  
+  /* Improve form inputs on mobile */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Better button sizing for mobile */
+  button {
+    min-height: 44px;
+  }
+  
+  /* Improve navigation for mobile */
+  nav a, nav button {
+    padding: 12px 16px;
+    min-height: 44px;
+  }
+}
+
+/* Tablet-specific improvements */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Better spacing for tablets */
+  .space-y-8 > * + * {
+    margin-top: 2rem;
+  }
+  
+  /* Improve grid layouts for tablets */
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Desktop-specific improvements */
+@media (min-width: 1025px) {
+  /* Restore full spacing for desktop */
+  .space-y-8 > * + * {
+    margin-top: 2rem;
+  }
+  
+  /* Better hover effects for desktop */
+  .holo-button:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Sharper text rendering */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Landscape mobile improvements */
+@media (max-width: 640px) and (orientation: landscape) {
+  /* Reduce padding for landscape mobile */
+  .py-12 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .py-16 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  /* Better use of horizontal space */
+  .px-4 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .holo-button:hover {
+    transform: none;
+  }
+  
+  .holo-text {
+    animation: none;
+  }
+  
+  .glitch {
+    animation: none;
+  }
+  
+  .metallic {
+    animation: none;
+  }
+}
+
+/* Focus styles for better accessibility */
+.holo-button:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--cyber-green);
+  outline-offset: 2px;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--cyber-green);
+  color: var(--background);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 6px;
 }

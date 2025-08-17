@@ -86,7 +86,7 @@ const ServicesSection = () => {
     <section
       id="servicos"
       ref={ref}
-      className="relative py-20 px-4 sm:px-8 overflow-hidden"
+      className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
@@ -128,11 +128,11 @@ const ServicesSection = () => {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <motion.h2
             variants={itemVariants}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 holo-text"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 holo-text"
             data-text="NOSSOS SERVIÇOS"
           >
             NOSSOS SERVIÇOS
@@ -140,7 +140,7 @@ const ServicesSection = () => {
           
           <motion.p
             variants={itemVariants}
-            className="text-lg sm:text-xl lg:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto glitch"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-4xl mx-auto glitch px-4"
             data-text="Tudo que você precisa para uma experiência universitária completa"
           >
             Tudo que você precisa para uma experiência universitária completa
@@ -148,9 +148,9 @@ const ServicesSection = () => {
 
           <motion.div
             variants={itemVariants}
-            className="bg-metallic p-8 rounded-lg border border-cyber-blue-dark shadow-lg scan-lines max-w-4xl mx-auto"
+            className="bg-metallic p-4 sm:p-6 lg:p-8 rounded-lg border border-cyber-blue-dark shadow-lg scan-lines max-w-4xl mx-auto"
           >
-            <p className="text-lg text-gray-300 leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed">
               Na <span className="text-cyber-green font-semibold">RUMON</span>, oferecemos uma gama completa de serviços 
               para transformar sua experiência universitária. Desde a <span className="text-cyber-blue font-semibold">seleção de repúblicas</span> 
               até o <span className="text-cyber-green font-semibold">suporte contínuo</span>, estamos aqui para garantir 
@@ -163,38 +163,38 @@ const ServicesSection = () => {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
         >
           {services.map((service, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
-              className="group relative bg-metallic p-6 rounded-lg border border-cyber-green-dark shadow-lg scan-lines hover:shadow-cyber-green/20 transition-all duration-300 cursor-hover"
+              className="group relative bg-metallic p-4 sm:p-6 rounded-lg border border-cyber-green-dark shadow-lg scan-lines hover:shadow-cyber-green/20 transition-all duration-300 cursor-hover"
             >
               {/* Hover effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-cyber-green/10 to-cyber-blue/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
               
               <div className="relative z-10">
                 <motion.div
-                  className={`w-16 h-16 bg-gradient-to-br from-${service.color} to-${service.color}-dark rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                  className={`w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-${service.color} to-${service.color}-dark rounded-lg flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300`}
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.6 }}
                 >
-                  <service.icon className="w-8 h-8 text-black" />
+                  <service.icon className="w-6 h-6 sm:w-8 sm:h-8 text-black" />
                 </motion.div>
                 
-                <h3 className="text-xl font-bold text-cyber-green mb-3 group-hover:text-cyber-blue transition-colors duration-300">
+                <h3 className="text-lg sm:text-xl font-bold text-cyber-green mb-2 sm:mb-3 group-hover:text-cyber-blue transition-colors duration-300">
                   {service.title}
                 </h3>
                 
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-sm sm:text-base text-gray-300 leading-relaxed mb-3 sm:mb-4">
                   {service.description}
                 </p>
 
                 <ul className="space-y-2">
                   {service.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                      <div className={`w-2 h-2 bg-${service.color} rounded-full mr-3 flex-shrink-0`} />
+                    <li key={featureIndex} className="flex items-center text-xs sm:text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                      <div className={`w-2 h-2 bg-${service.color} rounded-full mr-2 sm:mr-3 flex-shrink-0`} />
                       {feature}
                     </li>
                   ))}

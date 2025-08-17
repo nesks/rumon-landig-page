@@ -72,7 +72,7 @@ const TestimonialsSection = () => {
     <section
       id="depoimentos"
       ref={ref}
-      className="relative py-20 px-4 sm:px-8 overflow-hidden"
+      className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
@@ -114,17 +114,17 @@ const TestimonialsSection = () => {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <motion.h2
             variants={itemVariants}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 holo-text"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 holo-text"
           >
             O que nossos <span className="text-cyber-green">estudantes</span> dizem
           </motion.h2>
           <motion.p
             variants={itemVariants}
-            className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"
           >
             Descubra como a RUMON está transformando a experiência universitária 
             através dos depoimentos de quem já faz parte da nossa comunidade.
@@ -146,43 +146,43 @@ const TestimonialsSection = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.5 }}
-              className="group relative bg-metallic p-8 rounded-lg border border-cyber-green-dark shadow-lg scan-lines"
+              className="group relative bg-metallic p-4 sm:p-6 lg:p-8 rounded-lg border border-cyber-green-dark shadow-lg scan-lines"
             >
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-cyber-green to-cyber-blue rounded-full flex items-center justify-center mr-6">
-                  <Users className="w-8 h-8 text-black" />
+              <div className="flex flex-col sm:flex-row items-start sm:items-center mb-4 sm:mb-6">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-cyber-green to-cyber-blue rounded-full flex items-center justify-center mr-4 sm:mr-6 mb-3 sm:mb-0">
+                  <Users className="w-6 h-6 sm:w-8 sm:h-8 text-black" />
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold text-cyber-green">{testimonials[currentTestimonialIndex].name}</h4>
-                  <p className="text-lg text-gray-400">{testimonials[currentTestimonialIndex].course}</p>
-                  <p className="text-sm text-gray-500">{testimonials[currentTestimonialIndex].university}</p>
+                  <h4 className="text-lg sm:text-xl font-bold text-cyber-green">{testimonials[currentTestimonialIndex].name}</h4>
+                  <p className="text-sm sm:text-lg text-gray-400">{testimonials[currentTestimonialIndex].course}</p>
+                  <p className="text-xs sm:text-sm text-gray-500">{testimonials[currentTestimonialIndex].university}</p>
                 </div>
               </div>
 
-              <div className="flex mb-6">
+              <div className="flex mb-4 sm:mb-6">
                 {[...Array(testimonials[currentTestimonialIndex].rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
                 ))}
               </div>
 
-              <blockquote className="text-gray-300 leading-relaxed italic text-lg mb-6">
+              <blockquote className="text-sm sm:text-base lg:text-lg text-gray-300 leading-relaxed italic mb-4 sm:mb-6">
                 "{testimonials[currentTestimonialIndex].text}"
               </blockquote>
 
-              <Quote className="w-10 h-10 text-cyber-green/30 absolute top-6 right-6" />
+              <Quote className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-cyber-green/30 absolute top-4 right-4 sm:top-6 sm:right-6" />
             </motion.div>
 
             {/* Navigation Buttons */}
-            <div className="flex justify-center items-center mt-8 space-x-4">
+            <div className="flex justify-center items-center mt-6 sm:mt-8 space-x-3 sm:space-x-4">
               <motion.button
                 onClick={() => setCurrentTestimonialIndex((prev) => 
                   prev === 0 ? testimonials.length - 1 : prev - 1
                 )}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-12 h-12 bg-gradient-to-br from-cyber-green to-cyber-blue rounded-full flex items-center justify-center border border-cyber-green-dark hover:border-cyber-green transition-all duration-300 cursor-hover"
+                className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-cyber-green to-cyber-blue rounded-full flex items-center justify-center border border-cyber-green-dark hover:border-cyber-green transition-all duration-300 cursor-hover"
               >
-                <ArrowLeft className="w-5 h-5 text-black" />
+                <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
               </motion.button>
 
               {/* Testimonial Indicators */}
@@ -193,7 +193,7 @@ const TestimonialsSection = () => {
                     onClick={() => setCurrentTestimonialIndex(index)}
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.8 }}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 cursor-hover ${
+                    className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 cursor-hover ${
                       index === currentTestimonialIndex 
                         ? 'bg-cyber-green' 
                         : 'bg-gray-600 hover:bg-gray-500'
@@ -208,9 +208,9 @@ const TestimonialsSection = () => {
                 )}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-12 h-12 bg-gradient-to-br from-cyber-green to-cyber-blue rounded-full flex items-center justify-center border border-cyber-green-dark hover:border-cyber-green transition-all duration-300 cursor-hover"
+                className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-cyber-green to-cyber-blue rounded-full flex items-center justify-center border border-cyber-green-dark hover:border-cyber-green transition-all duration-300 cursor-hover"
               >
-                <ArrowRight className="w-5 h-5 text-black" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
               </motion.button>
             </div>
           </div>

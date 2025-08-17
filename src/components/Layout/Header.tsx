@@ -46,12 +46,12 @@ const Header = () => {
       }`}
     >
       <div id="header-container" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div id="header-content" className="flex justify-between items-center h-16 lg:h-20">
+        <div id="header-content" className="flex justify-between items-center h-14 sm:h-16 lg:h-20">
           {/* Logo */}
           <motion.div
             id="header-logo"
             whileHover={{ scale: 1.05 }}
-            className="flex items-center space-x-3 cursor-hover"
+            className="flex items-center space-x-2 sm:space-x-3 cursor-hover"
             onClick={() => handleNavClick('#home')}
           >
             <motion.div
@@ -65,20 +65,20 @@ const Header = () => {
                 repeat: Infinity,
                 ease: "linear",
               }}
-              className="w-10 h-10 bg-gradient-to-br from-green-400 to-cyan-400 rounded-lg flex items-center justify-center metallic"
+              className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-green-400 to-cyan-400 rounded-lg flex items-center justify-center metallic"
             >
                 <img 
                 id="header-logo-cpu" 
                 src="/icon.png" 
                 alt="RUMON Logo" 
-                className="bg-white rounded-lg"
+                className="bg-white rounded-lg w-6 h-6 sm:w-8 sm:h-8"
               />
             </motion.div>
             <div id="header-logo-text">
-              <h1 id="header-logo-title" className="text-2xl lg:text-3xl font-bold holo-text">
+              <h1 id="header-logo-title" className="text-xl sm:text-2xl lg:text-3xl font-bold holo-text">
                 RUMON
               </h1>
-              <p id="header-logo-subtitle" className="text-xs text-green-400 tracking-wider">
+              <p id="header-logo-subtitle" className="text-xs text-green-400 tracking-wider hidden sm:block">
                 FUTURE LIVING
               </p>
             </div>
@@ -163,7 +163,7 @@ const Header = () => {
             transition={{ duration: 0.3 }}
             className="lg:hidden bg-black/95 backdrop-blur-lg border-t border-green-500/30 scan-lines"
           >
-            <div id="header-mobile-menu-content" className="px-4 py-6 space-y-4">
+            <div id="header-mobile-menu-content" className="px-4 py-6 space-y-3">
               {navItems.map((item, index) => (
                 <motion.button
                   key={item.name}
@@ -172,13 +172,13 @@ const Header = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="flex items-center space-x-3 text-gray-300 hover:text-green-400 transition-colors py-3 cursor-hover w-full text-left"
+                  className="flex items-center space-x-3 text-gray-300 hover:text-green-400 transition-colors py-3 px-2 cursor-hover w-full text-left rounded-lg hover:bg-green-400/10"
                 >
                   <item.icon id={`header-mobile-nav-icon-${index}`} size={20} />
-                  <span id={`header-mobile-nav-text-${index}`}>{item.name}</span>
+                  <span id={`header-mobile-nav-text-${index}`} className="text-base font-medium">{item.name}</span>
                 </motion.button>
               ))}
-              <div id="header-mobile-actions" className="flex items-center justify-between mt-4">
+              <div id="header-mobile-actions" className="flex items-center justify-between mt-6 pt-4 border-t border-green-500/20">
                 <div id="header-mobile-theme-toggle">
                   <ThemeToggle />
                 </div>
@@ -187,7 +187,7 @@ const Header = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: navItems.length * 0.1 }}
-                  className="holo-button"
+                  className="holo-button text-sm px-4 py-2"
                   onClick={() => handleNavClick('#portfolio')}
                 >
                   CONECTAR
