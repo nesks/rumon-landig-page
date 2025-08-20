@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowDown, Zap, Users, GraduationCap, Building } from 'lucide-react';
 import { useInView } from 'react-intersection-observer';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { useMousePosition } from '@/hooks/useMousePosition';
 import { usePerformanceMode } from '@/hooks/usePerformanceMode';
@@ -33,7 +33,7 @@ const HeroSection = () => {
       // In light mode, show text immediately
       setDisplayedText(fullText);
     }
-  }, [inView, shouldAnimate]);
+  }, [inView, shouldAnimate, fullText]);
 
   const containerVariants = getOptimizedVariants({
     hidden: { opacity: 0 },
@@ -58,69 +58,91 @@ const HeroSection = () => {
     },
   });
 
+  // Memoize stats data to prevent re-renders
+  const statsData = useMemo(() => [
+    { number: "50+", label: "Repúblicas Conectadas", icon: Building },
+    { number: "2000+", label: "Estudantes Ativos", icon: Users },
+    { number: "10+", label: "Anos de Inovação", icon: GraduationCap },
+  ], []);
+
+  // Memoize hologram icons
+  const hologramIcons = useMemo(() => [Building, Users, GraduationCap, Zap], []);
+
   return (
     <section id="home" ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900 pt-14 sm:pt-16 lg:pt-20">
-      {/* Cyber Background Effects */}
-      <div id="hero-background" className="absolute inset-0 pointer-events-none">
-        {/* Holographic Grid */}
-        <div id="hero-grid" className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300ff88' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }} />
-        </div>
-        
-        {/* Floating Holograms */}
-        {shouldAnimate && [...Array(12)].map((_, i) => {
-          const baseX = (i * 137.5) % windowSize.width;
-          const baseY = (i * 97.3) % windowSize.height;
-          const duration = 3 + (i % 4);
-          const icons = [Building, Users, GraduationCap, Zap];
-          const IconComponent = icons[i % icons.length];
+      {/* Optimized Cyber Background Effects */}
+      {shouldAnimate && (
+        <div id="hero-background" className="absolute inset-0 pointer-events-none">
+          {/* Simplified Holographic Grid */}
+          <div id="hero-grid" className="absolute inset-0 opacity-15">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300ff88' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }} />
+          </div>
           
-          return (
+          {/* Reduced Floating Holograms */}
+          {[...Array(6)].map((_, i) => {
+            const baseX = (i * 200) % (windowSize.width || 1200);
+            const baseY = (i * 150) % (windowSize.height || 800);
+            const duration = 4 + (i % 3);
+            const IconComponent = hologramIcons[i % hologramIcons.length];
+            
+            return (
+              <motion.div
+                key={i}
+                id={`hero-hologram-${i}`}
+                className="absolute"
+                initial={{
+                  x: baseX,
+                  y: baseY,
+                  scale: 0,
+                  opacity: 0,
+                }}
+                animate={{
+                  y: [baseY, baseY - 30, baseY],
+                  scale: [0.5, 0.8, 0.5],
+                  opacity: [0.1, 0.3, 0.1],
+                  rotateY: [0, 180, 360],
+                }}
+                transition={{
+                  duration: duration,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.8,
+                }}
+              >
+                <div id={`hero-hologram-icon-${i}`} className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-green-400/15 to-cyan-400/15 rounded-lg backdrop-blur-sm border border-green-400/20 flex items-center justify-center">
+                  <IconComponent id={`hero-hologram-icon-component-${i}`} className="w-3 h-3 sm:w-4 sm:h-4 text-green-400" />
+                </div>
+              </motion.div>
+            );
+          })}
+
+          {/* Reduced Cyber Particles */}
+          {[...Array(10)].map((_, i) => (
             <motion.div
               key={i}
-              id={`hero-hologram-${i}`}
-              className="absolute"
-              initial={{
-                x: baseX,
-                y: baseY,
-                scale: 0,
-                opacity: 0,
+              id={`hero-particle-${i}`}
+              className="absolute w-0.5 h-0.5 bg-green-400 rounded-full"
+              style={{
+                left: `${(i * 10) % 100}%`,
+                top: '-10px',
+                boxShadow: '0 0 2px #00ff88',
               }}
               animate={{
-                y: [baseY, baseY - 50, baseY],
-                scale: [0.5, 1, 0.5],
-                opacity: [0.1, 0.4, 0.1],
-                rotateY: [0, 360],
+                y: ['0vh', '110vh'],
+                opacity: [0, 0.6, 0],
               }}
               transition={{
-                duration: duration,
-                repeat: Infinity,
-                ease: "easeInOut",
+                duration: 3 + (i % 2),
                 delay: i * 0.5,
+                repeat: Infinity,
+                ease: "linear",
               }}
-            >
-              <div id={`hero-hologram-icon-${i}`} className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-green-400/20 to-cyan-400/20 rounded-lg backdrop-blur-sm border border-green-400/30 flex items-center justify-center">
-                <IconComponent id={`hero-hologram-icon-component-${i}`} className="w-4 h-4 sm:w-6 sm:h-6 text-green-400" />
-              </div>
-            </motion.div>
-          );
-        })}
-
-        {/* Cyber Particles */}
-        {shouldAnimate && [...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            id={`hero-particle-${i}`}
-            className="cyber-particles"
-            style={{
-              left: `${(i * 5) % 100}%`,
-              animationDelay: `${i * 0.3}s`,
-            }}
-          />
-        ))}
-      </div>
+            />
+          ))}
+        </div>
+      )}
 
       {/* Content */}
       <div id="hero-content" className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -131,8 +153,6 @@ const HeroSection = () => {
           animate={inView ? "visible" : "hidden"}
           className="space-y-6 sm:space-y-8"
         >
-
-
           {/* Main Title with Glitch Effect */}
           <motion.div id="hero-title" variants={itemVariants}>
             <h1 id="hero-main-title" className="text-2xl sm:text-4xl md:text-6xl lg:text-8xl font-bold text-white leading-tight px-2">
@@ -140,14 +160,16 @@ const HeroSection = () => {
                 <span id="hero-glitch-text" className="holo-text glitch" data-text={displayedText}>
                   {displayedText}
                 </span>
-                <motion.span
-                  id="hero-cursor"
-                  animate={getOptimizedAnimate({ opacity: [0, 1, 0] })}
-                  transition={getOptimizedTransition({ duration: 1, repeat: Infinity })}
-                  className="text-green-400"
-                >
-                  _
-                </motion.span>
+                {shouldAnimate && (
+                  <motion.span
+                    id="hero-cursor"
+                    animate={getOptimizedAnimate({ opacity: [0, 1, 0] })}
+                    transition={getOptimizedTransition({ duration: 1, repeat: Infinity })}
+                    className="text-green-400"
+                  >
+                    _
+                  </motion.span>
+                )}
               </span>
             </h1>
           </motion.div>
@@ -182,8 +204,7 @@ const HeroSection = () => {
               id="hero-cta-primary"
               whileHover={getOptimizedWhileHover({ 
                 scale: 1.05,
-                boxShadow: "0 0 30px rgba(0, 255, 136, 0.5)",
-                textShadow: "0 0 10px #00ff88",
+                boxShadow: "0 0 20px rgba(0, 255, 136, 0.3)",
               })}
               whileTap={getOptimizedWhileTap({ scale: 0.95 })}
               className="group relative holo-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto"
@@ -198,7 +219,6 @@ const HeroSection = () => {
               id="hero-cta-secondary"
               whileHover={getOptimizedWhileHover({ 
                 scale: 1.05,
-                textShadow: "0 0 10px #00d4ff",
               })}
               whileTap={getOptimizedWhileTap({ scale: 0.95 })}
               className="border-2 border-cyan-400/50 text-cyan-400 px-6 sm:px-8 py-3 sm:py-4 rounded-none font-semibold text-base sm:text-lg hover:bg-cyan-400/10 hover:border-cyan-400 transition-all duration-300 cursor-hover tracking-wider w-full sm:w-auto"
@@ -213,18 +233,13 @@ const HeroSection = () => {
             variants={itemVariants}
             className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12 sm:mt-16 pt-12 sm:pt-16 border-t border-green-500/30 px-4"
           >
-            {[
-              { number: "50+", label: "Repúblicas Conectadas", icon: Building },
-              { number: "2000+", label: "Estudantes Ativos", icon: Users },
-              { number: "10+", label: "Anos de Inovação", icon: GraduationCap },
-            ].map((stat, index) => (
+            {statsData.map((stat, index) => (
               <motion.div
                 key={index}
                 id={`hero-stat-${index}`}
                 whileHover={getOptimizedWhileHover({ 
-                  y: -5,
-                  scale: 1.05,
-                  textShadow: "0 0 15px #00ff88",
+                  y: -3,
+                  scale: 1.02,
                 })}
                 className="text-center group"
               >
@@ -259,7 +274,7 @@ const HeroSection = () => {
       >
         <motion.div
           id="hero-scroll-icon"
-          animate={getOptimizedAnimate({ y: [0, 10, 0] })}
+          animate={getOptimizedAnimate({ y: [0, 8, 0] })}
           transition={getOptimizedTransition({ duration: 2, repeat: Infinity })}
           className="flex flex-col items-center text-green-400 cursor-pointer"
           onClick={() => {
@@ -270,7 +285,7 @@ const HeroSection = () => {
           <ArrowDown id="hero-scroll-arrow" className="w-4 h-4 sm:w-5 sm:h-5" />
           <motion.div
             id="hero-scroll-bar"
-            animate={getOptimizedAnimate({ scaleY: [1, 1.5, 1] })}
+            animate={getOptimizedAnimate({ scaleY: [1, 1.3, 1] })}
             transition={getOptimizedTransition({ duration: 1, repeat: Infinity })}
             className="w-px h-6 sm:h-8 bg-gradient-to-b from-green-400 to-transparent mt-2"
           />

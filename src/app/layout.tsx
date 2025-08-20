@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/components/Providers/ThemeProvider";
@@ -7,6 +7,7 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -31,7 +32,18 @@ export const metadata: Metadata = {
     description: "Conecte-se ao futuro da moradia estudantil com tecnologia e inovação.",
     creator: "@rumon_tech",
   },
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+  other: {
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+    "apple-mobile-web-app-title": "RUMON",
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
   themeColor: "#00ff88",
 };
 
@@ -43,13 +55,55 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} scroll-smooth`}>
       <head>
+        {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* DNS prefetch for performance */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        
+        {/* Manifest for PWA */}
+        <link rel="manifest" href="/manifest.json" />
+        
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/icon.png" />
+        
+        {/* Performance hints */}
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
       </head>
       <body className="antialiased bg-black text-white font-inter overflow-x-hidden relative">
         <ThemeProvider>
           {children}
         </ThemeProvider>
+        
+        {/* Performance monitoring script */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Performance monitoring
+              if ('performance' in window) {
+                window.addEventListener('load', () => {
+                  setTimeout(() => {
+                    const perfData = performance.getEntriesByType('navigation')[0];
+                    if (perfData) {
+                      console.log('Page Load Time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
+                    }
+                  }, 0);
+                });
+              }
+              
+              // Service Worker registration for caching
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/sw.js').catch(console.error);
+                });
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );

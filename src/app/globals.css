@@ -264,9 +264,48 @@ body::before {
   background: linear-gradient(135deg, #e2e8f0, #cbd5e0, #e2e8f0);
 }
 
+/* Glassmorphism effect for dark mode cards */
+[data-theme="dark"] .metallic {
+  background: rgba(42, 42, 42, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Glassmorphism hover effect for dark mode */
+[data-theme="dark"] .metallic:hover {
+  background: rgba(42, 42, 42, 0.35);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  box-shadow: 
+    0 8px 32px 0 rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 20px rgba(0, 255, 136, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(10px)) {
+  [data-theme="dark"] .metallic {
+    background: rgba(42, 42, 42, 0.8);
+  }
+  
+  [data-theme="dark"] .metallic:hover {
+    background: rgba(42, 42, 42, 0.9);
+  }
+}
+
 @keyframes metallicShine {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
+}
+
+/* Disable metallicShine animation for dark mode glassmorphism */
+[data-theme="dark"] .metallic {
+  animation: none;
 }
 
 /* Custom scrollbar */
